@@ -2,14 +2,19 @@
 global:
     checkNewVersion: false
     sendAnonymousUsage: false
-    
+
 api:
     dashboard: true #Dashboard traefik :8080
     insecure: true
-    
+
 entrypoints:
     web:
         address: ":80" # Entrypoint pour le HTTP
+        http:
+            redirections:
+                entrypoint:
+                    to: websecure
+                    scheme: https
     websecure:
         address: ":443" # Entrypoint pour le HTTPS
 
@@ -17,3 +22,11 @@ providers:
     docker:
         endpoint: "unix:///var/run/docker.sock"
         exposedByDefault: false
+
+certificatesResolvers:
+    letsencrypt:
+        acme:
+            email: droopy93250@gmail.com
+            storage: /etc/traefik/acme.json
+            httpChallenge:
+                entryPoint: web
