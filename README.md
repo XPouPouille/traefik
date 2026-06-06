@@ -36,6 +36,15 @@ chmod 600 acme.json
 sudo docker compose up -d
 ```
 
+## Mise à jour
+
+```bash
+cd ~/traefik
+git pull origin main
+sudo docker compose down
+sudo docker compose up -d
+```
+
 ## Accès
 
 - **Dashboard** : http://[ip-serveur]:8080
